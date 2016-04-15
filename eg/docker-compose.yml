@@ -1,0 +1,25 @@
+version: '2'
+services:
+  web:
+    image: centos
+    working_dir: /home/eg
+    entrypoint: ./start.sh
+    ports:
+      - "80:8000"
+    volumes:
+      - $PLAYHOME/eg:/home/eg
+    environment:
+      - REDIS_URL=redis://redis
+      - DATABASE_URL=postgres://ppmuser:@postgres:5432/ppmdb
+    env_file:
+      - creds.env
+    depends_on:
+      - redis
+      - postgres
+  redis:
+    image: redis
+  postgres:
+    image: postgres
+    volumes:
+      - $PLAYHOME/initdb:/docker-entrypoint-initdb.d
+ 
