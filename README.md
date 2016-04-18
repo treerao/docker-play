@@ -53,10 +53,10 @@ Set up environment variable for convenience:
     cd docker-play
     export PLAYHOME=$PWD
 
-Start up various official DB images, e.g.
+Start up various official DB images, e.g. redis and postgres, mapping their standard ports.  Use the init script setup of DB container.
 
-    docker run -d redis
-    docker run -d -v $PLAYHOME/initdb:/docker-entrypoint-initdb.d postgres
+    docker run -d -p 6379:6379 redis
+    docker run -d -p 5432:5432 -v $PLAYHOME/initdb:/docker-entrypoint-initdb.d postgres
 
 Run a simple python webserver.
 
